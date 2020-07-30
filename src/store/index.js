@@ -4,8 +4,9 @@ import Vuex from 'vuex';
 import mutations from './mutations/mutations';
 import getters from './getters/getters';
 import apiRequests from './actions/api-requests';
+import commonActions from './actions/commonActions';
 
-const actions = { ...apiRequests };
+const actions = { ...apiRequests, ...commonActions };
 
 Vue.use(Vuex);
 

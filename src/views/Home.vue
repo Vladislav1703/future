@@ -9,11 +9,11 @@
     </select>
     <table>
       <tr>
-        <td>id</td>
-        <td>first name</td>
-        <td>last name</td>
-        <td>email</td>
-        <td>phone</td>
+        <td @click="sortList('id')">id</td>
+        <td @click="sortList('firstName')">first name</td>
+        <td @click="sortList('lastName')">last name</td>
+        <td @click="sortList('email')">email</td>
+        <td @click="sortList('phone')">phone</td>
       </tr>
       <ListItem
         v-for="row in LIST"
@@ -53,9 +53,14 @@ export default {
   methods: {
     ...mapActions([
       'GET_LIST_FROM_API',
+      'SORT_LIST',
     ]),
     selectList(event) {
       this.$store.dispatch('GET_LIST_FROM_API', { link: event.target.value });
+    },
+    sortList(sortBy) {
+      console.log(sortBy);
+      this.$store.dispatch('SORT_LIST', { key: sortBy });
     },
   },
 };
