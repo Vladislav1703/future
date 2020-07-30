@@ -1,0 +1,19 @@
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+import mutations from './mutations/mutations';
+import getters from './getters/getters';
+import apiRequests from './actions/api-requests';
+
+const actions = { ...apiRequests };
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {
+    list: [],
+  },
+  mutations,
+  actions,
+  getters,
+});
