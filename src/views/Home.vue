@@ -7,6 +7,7 @@
       <option :value="SmallList">Малый список</option>
       <option :value="BigList">Большой список</option>
     </select>
+    <Filter @filterList="filterList"/>
     <table>
       <tr>
         <td @click="sortList('id')">id</td>
@@ -28,6 +29,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
 import ListItem from '@/components/ListItem.vue';
+import Filter from '@/components/Filter.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -35,6 +37,7 @@ export default {
   components: {
     HelloWorld,
     ListItem,
+    Filter,
   },
   data() {
     return {
@@ -57,7 +60,12 @@ export default {
       'GET_LIST_FROM_API',
       'SORT_LIST',
     ]),
+    filterList(filterkey) {
+      this.$store.dispatch('', filterkey);
+    },
     selectList(event) {
+      this.sortBy = '';
+      this.sortArgument = 1;
       this.$store.dispatch('GET_LIST_FROM_API', { link: event.target.value });
     },
     sortList(sortBy) {
