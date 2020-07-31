@@ -12,7 +12,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    list: [],
+    regular_list: [],
   },
   mutations,
   actions,

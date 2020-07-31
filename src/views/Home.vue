@@ -16,7 +16,7 @@
         <td @click="sortList('phone')">phone</td>
       </tr>
       <ListItem
-        v-for="row in LIST"
+        v-for="row in REGULARLIST"
         :key="row.id"
         :row="row"
       />
@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'LIST',
+      'REGULARLIST',
     ]),
   },
   methods: {
@@ -59,7 +59,6 @@ export default {
       this.$store.dispatch('GET_LIST_FROM_API', { link: event.target.value });
     },
     sortList(sortBy) {
-      console.log(sortBy);
       this.$store.dispatch('SORT_LIST', { key: sortBy });
     },
   },

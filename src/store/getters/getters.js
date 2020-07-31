@@ -1,5 +1,5 @@
 export default {
-  LIST(state) {
-    return state.list;
+  REGULARLIST(state) {
+    return state.regular_list;
   },
 };
