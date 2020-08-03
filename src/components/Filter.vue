@@ -1,25 +1,22 @@
 <template>
     <div class="v-future-filter">
-      <form @sumbit="setFilter(filterkey)">
-        <p>
-          <input v-model="filterKey">
-          <input type="sumbit">
-        </p>
-      </form>
+      <input type="text" v-model="filterKey">
+      <button @click="setFilter">Найти</button>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'FilterList',
+  name: 'FilteredList',
   data() {
     return {
       filterKey: '',
     };
   },
   methods: {
-    setFilter(filterkey) {
-      this.$emit('filterList', filterkey);
+    setFilter() {
+      console.log('child', this.filterKey);
+      this.$emit('filterList', this.filterKey);
     },
   },
 };

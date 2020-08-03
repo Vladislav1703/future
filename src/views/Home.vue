@@ -7,7 +7,7 @@
       <option :value="SmallList">Малый список</option>
       <option :value="BigList">Большой список</option>
     </select>
-    <Filter @filterList="filterList"/>
+    <FilteredList @filterList="filterList"/>
     <table>
       <tr>
         <td @click="sortList('id')">id</td>
@@ -20,6 +20,7 @@
         v-for="(row, index) in REGULARLIST"
         :key="index"
         :row="row"
+        @showAllInfo="showAllInfo"
       />
     </table>
   </div>
@@ -29,7 +30,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
 import ListItem from '@/components/ListItem.vue';
-import Filter from '@/components/Filter.vue';
+import FilteredList from '@/components/Filter.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -37,7 +38,7 @@ export default {
   components: {
     HelloWorld,
     ListItem,
-    Filter,
+    FilteredList,
   },
   data() {
     return {
@@ -61,7 +62,8 @@ export default {
       'SORT_LIST',
     ]),
     filterList(filterkey) {
-      this.$store.dispatch('', filterkey);
+      console.log(filterkey);
+      this.$store.dispatch('SET_FILTER', filterkey);
     },
     selectList(event) {
       this.sortBy = '';
@@ -76,6 +78,9 @@ export default {
       this.sortBy = sortBy;
       this.sortArgument = 1;
       return this.$store.dispatch('SORT_LIST', { key: sortBy, sortArg: 1 });
+    },
+    showAllInfo(row) {
+      console.log(row);
     },
   },
 };

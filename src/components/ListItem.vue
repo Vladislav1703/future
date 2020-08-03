@@ -1,5 +1,5 @@
 <template>
-  <tr class='v-future-listitem'>
+  <tr @click="showAllInfo" class='v-future-listitem'>
     <td class="id">{{row.id}}</td>
     <td class="firstName">{{row.firstName}}</td>
     <td class="lastName">{{row.lastName}}</td>
@@ -17,6 +17,11 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  methods: {
+    showAllInfo() {
+      this.$emit('showAllInfo', this.row);
     },
   },
 };
