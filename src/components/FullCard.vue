@@ -1,7 +1,7 @@
 <template>
-    <div class='v-future-listitem'>
+    <div class='v-future-fullcard'>
         <p>Выбран ползователь: <b>{{fullName}}</b></p>
-        <div>Описание: <p>{{row.description}}</p></div>
+        <div>Описание: {{row.description}}</div>
         <p>Адрес проживания: <b>{{row.address.streetAddress}}</b></p>
         <p>Город: <b>{{row.address.city}}</b></p>
         <p>Провинция/штат: <b>{{row.address.state}}</b></p>
@@ -30,4 +30,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .v-future-fullcard {
+    text-align:left;
+    width:535px;
+  }
 </style>

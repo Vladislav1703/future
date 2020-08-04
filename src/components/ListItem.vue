@@ -28,4 +28,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  .v-future-listitem{
+    cursor: pointer;
+  }
 </style>
