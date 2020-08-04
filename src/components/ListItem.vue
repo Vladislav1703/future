@@ -14,21 +14,25 @@ export default {
   props: {
     row: {
       type: Object,
-      default() {
-        return {};
-      },
-    },
+      default () {
+        return {}
+      }
+    }
   },
   methods: {
-    showAllInfo() {
-      this.$emit('showAllInfo', this.row);
-    },
-  },
-};
+    showAllInfo () {
+      this.$emit('showAllInfo', this.row)
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
   .v-future-listitem{
     cursor: pointer;
+  }
+  td {
+    padding: 3px;
+    border: 1px solid black;
   }
 </style>

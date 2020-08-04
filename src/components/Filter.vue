@@ -1,5 +1,6 @@
 <template>
     <div class="v-future-filter">
+      <p>Фильтр</p>
       <input type="text" v-model="filterKey">
       <button @click="setFilter">Найти</button>
     </div>
@@ -8,16 +9,21 @@
 <script>
 export default {
   name: 'FilteredList',
-  data() {
+  data () {
     return {
-      filterKey: '',
-    };
+      filterKey: ''
+    }
   },
   methods: {
-    setFilter() {
-      console.log('child', this.filterKey);
-      this.$emit('filterList', this.filterKey);
-    },
-  },
-};
+    setFilter () {
+      this.$emit('filterList', this.filterKey)
+    }
+  }
+}
 </script>
+
+<style lang="scss" scoped>
+  .v-future-filter{
+    margin-top: 20px;
+  }
+</style>
