@@ -25,6 +25,7 @@
         <th @click="sortList('email')">email</th>
         <th @click="sortList('phone')">phone</th>
       </tr>
+      <InputRow @pushRow="pushRow"></InputRow>
       <ListItem
         v-for="(row, index) in REGULARLIST"
         :key="index"
@@ -32,7 +33,6 @@
         @showAllInfo="showAllInfo"
       ></ListItem>
     </table>
-
     <FullCard v-for="(row, index) in actualRow" :key="index" :row="row"></FullCard>
   </div>
 </template>
@@ -43,6 +43,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import ListItem from '@/components/ListItem.vue'
 import FilteredList from '@/components/Filter.vue'
 import FullCard from '@/components/FullCard.vue'
+import InputRow from '@/components/InputRow.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -51,7 +52,8 @@ export default {
     HelloWorld,
     ListItem,
     FilteredList,
-    FullCard
+    FullCard,
+    InputRow
   },
   data () {
     return {
@@ -72,6 +74,9 @@ export default {
     ...mapActions(['GET_LIST_FROM_API', 'SORT_LIST']),
     filterList (filterkey) {
       this.$store.dispatch('SET_FILTER', filterkey)
+    },
+    pushRow (id, firstName, lastName, email, phone) {
+      this.$store.dispatch('PUSH_ROW_IN_LIST', { id, firstName, lastName, email, phone })
     },
     selectList (event) {
       this.sortBy = ''

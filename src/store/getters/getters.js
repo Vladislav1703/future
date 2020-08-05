@@ -1,8 +1,8 @@
 export default {
-  REGULARLIST(state) {
-    return state.regular_list;
+  REGULARLIST (state) {
+    return state.regular_list
   },
-  LOADING(state) {
-    return state.loading;
-  },
-};
+  LOADING (state) {
+    return state.loading
+  }
+}
