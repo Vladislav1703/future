@@ -72,6 +72,11 @@ export default {
     pushRow () {
       console.log('pushRow', this.id, this.firstName, this.lastName, this.email, this.phone)
       this.$emit('pushRow', this.id, this.firstName, this.lastName, this.email, this.phone)
+      this.id = null
+      this.firstName = null
+      this.lastName = null
+      this.email = null
+      this.phone = null
     }
   }
 }

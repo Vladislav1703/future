@@ -2,7 +2,21 @@
 /* eslint-disable no-nested-ternary */
 export default {
   PUSH_ROW_IN_STATE: (state, row) => {
-    state.general_list.unshift(row)
+    let newPhone = 0
+    const newRow = row
+    newRow.description = ''
+    newRow.address = {}
+    newRow.address.streetAddress = ''
+    newRow.address.city = ''
+    newRow.address.state = ''
+    newRow.address.zip = ''
+    console.log('newRow.phone', newRow.phone)
+    newPhone = newRow.phone.split('').splice(0, 0, '(')
+
+    console.log('newPhone', newPhone)
+    newRow.phone = newPhone
+    console.log('newRow', newRow)
+    state.general_list.unshift(newRow)
     state.regular_list = state.general_list.slice(0, 50)
   },
   SET_LIST_TO_STATE: (state, list) => {
