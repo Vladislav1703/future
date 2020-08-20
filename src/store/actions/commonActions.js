@@ -8,5 +8,8 @@ export default {
   },
   SET_FILTER ({ commit }, filterkey) {
     commit('SET_FILTER_IN_STATE', filterkey)
+  },
+  SET_PAGE ({ commit }, pages) {
+    commit('SET_PAGE_IN_STATE', pages)
   }
 }

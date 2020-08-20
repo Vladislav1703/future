@@ -10,12 +10,8 @@ export default {
     newRow.address.city = ''
     newRow.address.state = ''
     newRow.address.zip = ''
-    console.log('newRow.phone', newRow.phone)
-    newPhone = newRow.phone.split('').splice(0, 0, '(')
-
-    console.log('newPhone', newPhone)
+    newPhone = `(${newRow.phone.slice(0, 3)})${newRow.phone.slice(3, 6)}-${newRow.phone.slice(6)}`
     newRow.phone = newPhone
-    console.log('newRow', newRow)
     state.general_list.unshift(newRow)
     state.regular_list = state.general_list.slice(0, 50)
   },
@@ -48,5 +44,8 @@ export default {
   SET_FILTER_IN_STATE: (state, filterkey) => {
     state.regular_list = state.general_list.filter((item) => item.id.toString().indexOf(filterkey) > -1 || item.firstName.indexOf(filterkey) > -1 || item.lastName.indexOf(filterkey) > -1 || item.email.indexOf(filterkey) > -1 || item.phone.toString().indexOf(filterkey) > -1)
     state.sorting_list = true
+  },
+  SET_PAGE_IN_STATE: (state, pages) => {
+    state.regular_list = state.general_list.slice(pages.startRow, pages.endRow)
   }
 }

@@ -19,11 +19,31 @@
     <FilteredList @filterList="filterList"></FilteredList>
     <table>
       <tr>
-        <th @click="sortList('id')">id</th>
-        <th @click="sortList('firstName')">first name</th>
-        <th @click="sortList('lastName')">last name</th>
-        <th @click="sortList('email')">email</th>
-        <th @click="sortList('phone')">phone</th>
+        <th @click="sortList('id')">
+          id {{ this.sortBy == 'id' &&  this.sortArgument == 1 ? '▲' : (
+            this.sortBy == 'id' &&  this.sortArgument == -1
+            ) ? '▼' : ''}}
+        </th>
+        <th @click="sortList('firstName')">
+          first name {{ this.sortBy == 'firstName' &&  this.sortArgument == 1 ? '▲' : (
+            this.sortBy == 'firstName' &&  this.sortArgument == -1
+            ) ? '▼' : ''}}
+        </th>
+        <th @click="sortList('lastName')">
+          last name {{ this.sortBy == 'lastName' &&  this.sortArgument == 1 ? '▲' : (
+            this.sortBy == 'lastName' &&  this.sortArgument == -1
+            ) ? '▼' : ''}}
+        </th>
+        <th @click="sortList('email')">
+          email {{ this.sortBy == 'email' &&  this.sortArgument == 1 ? '▲' : (
+            this.sortBy == 'email' &&  this.sortArgument == -1
+            ) ? '▼' : ''}}
+        </th>
+        <th @click="sortList('phone')">
+          phone {{ this.sortBy == 'phone' &&  this.sortArgument == 1 ? '▲' : (
+            this.sortBy == 'phone' &&  this.sortArgument == -1
+            ) ? '▼' : ''}}
+        </th>
       </tr>
       <InputRow @pushRow="pushRow"></InputRow>
       <ListItem
@@ -34,6 +54,10 @@
       ></ListItem>
     </table>
     <FullCard v-for="(row, index) in actualRow" :key="index" :row="row"></FullCard>
+    <div>
+      <button :disabled="prevPageDisabled" @click="setPages(prevPage)">Предыдущая страница</button>
+      <button :disabled="nextPageDisabled" @click="setPages(nextPage)">Следующая страница</button>
+    </div>
   </div>
 </template>
 
@@ -64,11 +88,42 @@ export default {
       SmallList:
         'http://www.filltext.com/?rows=32&id=%7Bnumber%7C1000%7D&firstName=%7BfirstName%7D&lastName=%7BlastName%7D&email=%7Bemail%7D&phone=%7Bphone%7C(xxx)xxx-xx-xx%7D&address=%7BaddressObject%7D&description=%7Blorem%7C32%7D',
       sortBy: '',
-      sortArgument: 1
+      sortArgument: 1,
+      page: {
+        actualPage: 1,
+        perPage: 50
+      }
     }
   },
   computed: {
-    ...mapGetters(['REGULARLIST', 'LOADING'])
+    ...mapGetters(['GENERALLIST_LENGTH', 'REGULARLIST', 'LOADING']),
+    lastPage () {
+      return Math.ceil(this.GENERALLIST_LENGTH / 50)
+    },
+    nextPage () {
+      if (this.page.actualPage >= this.GENERALLIST_LENGTH) {
+        return this.GENERALLIST_LENGTH
+      }
+      return this.page.actualPage + 1
+    },
+    nextPageDisabled () {
+      if (this.page.actualPage >= this.GENERALLIST_LENGTH) {
+        return true
+      }
+      return false
+    },
+    prevPage () {
+      if (this.page.actualPage <= 1) {
+        return 1
+      }
+      return this.page.actualPage - 1
+    },
+    prevPageDisabled () {
+      if (this.page.actualPage <= 1) {
+        return true
+      }
+      return false
+    }
   },
   methods: {
     ...mapActions(['GET_LIST_FROM_API', 'SORT_LIST']),
@@ -77,6 +132,12 @@ export default {
     },
     pushRow (id, firstName, lastName, email, phone) {
       this.$store.dispatch('PUSH_ROW_IN_LIST', { id, firstName, lastName, email, phone })
+    },
+    setPages (number) {
+      this.page.actualPage = number
+      const startRow = this.page.perPage * (number - 1)
+      const endRow = this.page.perPage * number
+      this.$store.dispatch('SET_PAGE', { startRow, endRow })
     },
     selectList (event) {
       this.sortBy = ''
